@@ -16,6 +16,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.keren.project.model.Cliente;
 import com.keren.project.repository.ClienteRepository;
 
+import jakarta.validation.Valid;
+
 @RequestMapping("/api/clientes")
 @RestController
 public class ClienteController {
@@ -26,7 +28,7 @@ public class ClienteController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente salvarCliente(@RequestBody Cliente cliente){
+    public Cliente salvarCliente(@RequestBody @Valid Cliente cliente){
         return  repository.save(cliente);
     }
 
@@ -52,7 +54,7 @@ public class ClienteController {
    
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizar(@PathVariable Long id, @RequestBody Cliente clienteModificado){
+    public void atualizar(@PathVariable Long id, @RequestBody @Valid Cliente clienteModificado){
         repository.findById(id).map(cliente -> {
             cliente.setNome(clienteModificado.getNome());
             cliente.setCpf(clienteModificado.getCpf());

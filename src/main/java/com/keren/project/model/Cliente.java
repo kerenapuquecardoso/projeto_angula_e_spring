@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,11 +30,12 @@ public class Cliente {
     Long id;
 
     @Column(nullable= false, length=150)
-    @NotEmpty
+    @NotEmpty(message= "{campo.nome.obrigatorio}")
     private String nome;
 
     @Column(nullable=false, length=11)
-    @CPF
+    @NotNull(message= "{campo.cpf.obrigatorio}")
+    @CPF(message= "{campo.cpf.invalido}")
     private String cpf;
 
     @Column(name= "data_cadastro", updatable = false)
